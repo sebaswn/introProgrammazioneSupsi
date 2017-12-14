@@ -1,0 +1,34 @@
+// void add(int num, boolean ahead){
+//   Node newNode = new Node();
+//   if(findDuplicate(num) == false){
+//     if(ahead == true){
+//       if (head==null){
+// 				newNode.next = tail;
+// 				newNode.prev = null;
+// 				newNode.number = num;
+//         head = newNode;
+// 			}else{
+//         newNode.next = head;
+//         newNode.prev = null;
+//         newNode.number = num;
+//         head = newNode;
+//       }
+//     }else if(ahead == false){
+//       if(head == null){
+//         add(num, true);
+//         return;
+//       }else{
+//         newNode.next = null;
+//         newNode.prev = tail;
+//         newNode.number = num;
+//         Node temp = head;
+//         while(temp.next != null){
+//           temp = temp.next;
+//         }
+//         temp.next = newNode;
+//         }
+//       }
+//     }else{
+//       System.out.println("Your list already contains this numer.");
+//     }
+//   }
