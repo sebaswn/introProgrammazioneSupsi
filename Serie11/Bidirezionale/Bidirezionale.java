@@ -132,7 +132,6 @@ class List{
           tempNode.prev.next = newNode;
           tempNode.prev = newNode;
           newNode.next = tempNode;
-
         }
       }
     }
@@ -160,13 +159,13 @@ class List{
       }else{
         System.out.println(tempNode.prev.number);
       }
+
       System.out.println(tempNode.number);
       if(tempNode.next == null){
         System.out.println("----");
       }else{
         System.out.println(tempNode.next.number);
       }
-
     }
     System.out.println("");
   }
@@ -201,11 +200,7 @@ public class Bidirezionale{
   public static void main(String[] args){
     List listNumeri = new List();
 
-
-
     listNumeri.printList();
-
-    //listNumeri.remove(1);
 
     listNumeri.addOrdered(423,false);
     listNumeri.addOrdered(1,false);
@@ -221,11 +216,7 @@ public class Bidirezionale{
     listNumeri.remove(21);
     listNumeri.remove(104);
 
-
-
     listNumeri.find(5);
     listNumeri.filter(10,200);
-
-
   }
 }

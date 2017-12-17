@@ -1,34 +1,42 @@
-// void add(int num, boolean ahead){
-//   Node newNode = new Node();
-//   if(findDuplicate(num) == false){
-//     if(ahead == true){
-//       if (head==null){
-// 				newNode.next = tail;
-// 				newNode.prev = null;
-// 				newNode.number = num;
-//         head = newNode;
-// 			}else{
-//         newNode.next = head;
-//         newNode.prev = null;
-//         newNode.number = num;
-//         head = newNode;
-//       }
-//     }else if(ahead == false){
-//       if(head == null){
-//         add(num, true);
-//         return;
-//       }else{
-//         newNode.next = null;
-//         newNode.prev = tail;
-//         newNode.number = num;
-//         Node temp = head;
-//         while(temp.next != null){
-//           temp = temp.next;
-//         }
-//         temp.next = newNode;
-//         }
-//       }
-//     }else{
-//       System.out.println("Your list already contains this numer.");
-//     }
-//   }
+Serie 11 - Strutture Dinamiche - Seconda Parte
+
+Esercizio 11.1 - Lista bidirezionale (3 punti)
+Scrivete una classe che permetta di creare e utilizzare una lista bidirezionale ordinata d’interi, cio`e
+una lista in cui ogni elemento punti al suo precedente e al suo successivo in termini numerici. La
+lista non dovr`a permettere l’inserimento di duplicati.
+Implementate, tramite metodi d’istanza, le funzionalit`a d’inserimento e di rimozione di un elemento
+cos`ı come quella di stampa del contenuto. Un parametro aggiuntivo dei metodi d’inserimento e
+di rimozione dovr`a permettere di specificare se l’operazione `e da farsi partendo dalla testa o dal
+fondo della lista.
+Aggiungete inoltre i seguenti metodi:
+• un metodo che permetta di ricercare un valore all’interno della lista e che stampi a schermo
+l’elemento precedente e quello successivo. Il metodo dovr`a mostrare un messaggio d’errore
+nel caso in cui la lista non contenga il valore ricercato,
+• un metodo in grado di filtrare la lista originale e che ritorni una nuova lista contenente solo
+i valori compresi tra un minimo e un massimo specificati come parametri. Il metodo dovr`a
+ritornare una lista vuota nel caso in cui la lista non contenga nessun valore nell’intervallo
+specificato.
+Per collaudare la classe, scrivete un programma che costruisca una lista di almeno 10 elementi
+e che, successivamente, esegua almeno 5 inserimenti e cancellazioni di elementi. Controllate il
+contenuto della lista utilizzando il metodo di stampa.
+Eseguite infine la ricerca di un valore e di un range di valori visualizzando il risultato di tali ricerche.
+
+Esercizio 11.2 - Lista di stringhe (1 punto)
+Sviluppate un programma e le necessarie classi per una lista lineare semplice contenente stringhe
+ordinate alfabeticamente. Implementate le funzionalit`a per aggiungere/rimuovere elementi
+alla/dalla lista e per stampare il contenuto della lista sfruttando le possibilit`a offerte dai metodi
+d’istanza. Il programma dovr`a richiedere all’utilizzatore il tipo di operazione da eseguire (aggiunta
+o rimozione) e la parola da aggiungere o da rimuovere. Da ultimo, aggiungete alla classe della
+lista un metodo per ottenere una stringa composta dalle prime 2 e dalle ultime 2 lettere di tutte
+le stringhe contenute in ogni nodo della lista. Il metodo dovr`a interrogare ogni nodo in sequenza
+e, al termine, stampare a schermo la stringa risultante.
+
+Esercizio 11.3 - Lista di libri, seconda parte (1 punto)
+Riprendete l’esercizio svolto in classe la settimana scorsa riguardante la lista di libri ed estendetelo
+in modo da aggiungere le funzionalit`a che seguono:
+• la lista di libri dovr`a essere ordinata alfabeticamente in base all’autore e al titolo del libro,
+• dovr`a essere possibile ricercare tutti i libri di un determinato autore, ritornando una nuova
+lista contenente solo i libri dell’autore desiderato,
+• dovr`a essere possibile ricercare tutti i libri pubblicati in un determinato anno, ritornando
+una nuova lista contenente solo i libri pubblicati nell’anno in questione.
+Di conseguenza, modificate il programma di test.
