@@ -57,8 +57,9 @@ class List{
       while(tempNode != null){
         if(tempNode.author.equals(author)){
           System.out.println(tempNode.title);
-            authorList.add(tempNode.title, tempNode.author, tempNode.year);
+          authorList.add(tempNode.title, tempNode.author, tempNode.year);
         }
+        
         tempNode = tempNode.next;
       }
       return authorList;
@@ -103,6 +104,9 @@ class List{
 
             memNode = tempNode;
             tempNode = tempNode.next;
+            if(tempNode == null){
+              break;
+            }
           }
           break;
         }
