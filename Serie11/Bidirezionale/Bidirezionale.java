@@ -91,29 +91,29 @@ class List{
 
   void addOrdered(int num, boolean ahead){
     Node newNode = new Node();
-    Node tempNode = new Node();
+    Node tempNode = head;
+    newNode.number = num;
+
     if(findDuplicate(num) == false){
       if(ahead == true){
-        if (head==null){
-          newNode.next = tail;
-          newNode.prev = null;
-          newNode.number = num;
+        if(head == null){
           head = newNode;
-        }else if(head.number > num){
+          tail = newNode;
+          return;
+        }
+        if(head.number > num){
           newNode.next = head;
-          newNode.prev = null;
-          newNode.number = num;
           head = newNode;
-
         }else{
-          tempNode = head;
           while(tempNode.next != null && tempNode.next.number < num){
             tempNode = tempNode.next;
           }
-          newNode.number = num;
+
           newNode.next = tempNode.next;
           if(tempNode.next != null){
             tempNode.next.prev = newNode;
+          }else{
+            tail = newNode;
           }
           newNode.prev = tempNode;
           tempNode.next = newNode;
@@ -122,14 +122,19 @@ class List{
         if(tail == null){
           addOrdered(num, true);
           return;
+        }
+        if(tail.number < num){
+          newNode.prev = tail;
+          tail = newNode;
         }else{
           tempNode = tail;
           while(tempNode.prev != null && tempNode.prev.number > num){
             tempNode = tempNode.prev;
           }
-          newNode.number = num;
           newNode.prev = tempNode.prev;
-          tempNode.prev.next = newNode;
+          if(tempNode.prev != null){
+            tempNode.prev.next = newNode;
+          }
           tempNode.prev = newNode;
           newNode.next = tempNode;
         }
@@ -202,11 +207,11 @@ public class Bidirezionale{
 
     listNumeri.printList();
 
-    listNumeri.addOrdered(423,false);
+    listNumeri.addOrdered(423,true);
     listNumeri.addOrdered(1,false);
-    listNumeri.addOrdered(5,false);
+    listNumeri.addOrdered(5,true);
     listNumeri.addOrdered(352,false);
-    listNumeri.addOrdered(78,false);
+    listNumeri.addOrdered(78,true);
 
     listNumeri.printList();
 
