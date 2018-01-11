@@ -84,10 +84,15 @@ class List{
 
       while(temp != null){
         int wordLength = temp.word.length();
-        letters.append(temp.word.charAt(0));
-        letters.append(temp.word.charAt(1));
-        letters.append(temp.word.charAt(wordLength - 2));
-        letters.append(temp.word.charAt(wordLength - 1));
+        if(wordLength == 1){
+          letters.append(temp.word.charAt(0));
+          letters.append(temp.word.charAt(0));
+        }else{
+          letters.append(temp.word.charAt(0));
+          letters.append(temp.word.charAt(1));
+          letters.append(temp.word.charAt(wordLength - 2));
+          letters.append(temp.word.charAt(wordLength - 1));
+        }
         letters.append(" ");
         temp = temp.next;
       }
@@ -106,7 +111,7 @@ public class ListaStringhe{
     List list = new List();
 
     System.out.println("Syntax: [command]-[word]");
-    System.out.println("Commans: a = add; d = delete; p = print (no word necessary); l = see letters (no word necessary); e = exit (no word necessary)");
+    System.out.println("Commands: a = add; d = delete; p = print (no word necessary); l = see letters (no word necessary); e = exit (no word necessary)");
     System.out.println("");
     String userCommand;
     do{
@@ -115,9 +120,23 @@ public class ListaStringhe{
       String[] userInput = userCommand.split("-");
 
       switch(userInput[0]){
-        case "a":  list.add(userInput[1]);
+        case "a":
+          if(userInput.length == 2){
+            list.add(userInput[1]);
+          }else{
+            System.out.println("Not correct syntax.");
+            System.out.println("Syntax: [command]-[word]");
+            System.out.println("Commans: a = add; d = delete; p = print (no word necessary); l = see letters (no word necessary); e = exit (no word necessary)");
+          }
           break;
-        case "d":  list.delete(userInput[1]);
+        case "d":
+          if(userInput.length == 2){
+            list.delete(userInput[1]);
+          }else{
+            System.out.println("Not correct syntax.");
+            System.out.println("Syntax: [command]-[word]");
+            System.out.println("Commans: a = add; d = delete; p = print (no word necessary); l = see letters (no word necessary); e = exit (no word necessary)");
+          }
           break;
         case "p": list.printAll();
           break;
@@ -126,6 +145,7 @@ public class ListaStringhe{
         case "e":
           break;
         default: System.out.println("Command not valid. Please try again");
+
       }
     }while(userCommand.charAt(0) != 'e');
 
