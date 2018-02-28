@@ -7,8 +7,10 @@ public class Gioco {
   static int player = 1;
   static Scanner input  = new Scanner(System.in);
 
-  public static void menu(){
 
+  public static void menu(){
+    boolean moved = false;
+    System.out.println("");
     System.out.println("Player " + player);
     System.out.println("0. Exit");
     System.out.println("1. Show GameBoard");
@@ -27,18 +29,27 @@ public class Gioco {
           gameBoard.print();
           break;
         case 2:
-          System.out.println("Moving...");
+          gameBoard.moving(gameBoard.rollDice(), players);
+          moved = true;
           break;
         case 3:
           System.out.println("Game info...");
           break;
+        default:
+          System.out.println("Please insert a valid input.");
+          break;
       }
+    }else{
+      System.out.println("Please insert a valid input.");
+      input.next();
     }
 
-    if(player == 1){
+    if(player == 1 && moved == true){
       player = 2;
-    }else{
+      moved = false;
+    }else if(player == 2 && moved == true){
       player = 1;
+      moved = false;
     }
   }
 

@@ -1,7 +1,13 @@
+import java.util.Scanner;
+
 public class Board{
   static final int gridWidth = 10;
   static final int gridHeight = 10;
   static String[][] boardPieces = new String[10][10];
+  static Scanner input  = new Scanner(System.in);
+
+  Player player1 = new Player(0,9,0,1,"X");
+  Player player1 = new Player(9,0,0,1,"Y");
 
   static final String ANSI_YELLOW = "\u001B[33m";
   static final String ANSI_RESET = "\u001B[0m";
@@ -13,15 +19,43 @@ public class Board{
     return  1+(int)(Math.random()*6);
   }
 
-  public static void moving(int moves){
-    while (moves > 0){
-      System.out.println("Which way would you like to move? North(s),East(e),South(s),West(w)");
-      System.out.print("---> ");
+  public static void move(String dir, int player){
+    if(player == 1){
+
     }
   }
 
-
-
+  public static void moving(int moves, int player){
+    while (moves > 0){
+      System.out.println("");
+      System.out.println("Moves left: " + moves);
+      System.out.println("Which way would you like to move? North(n),East(e),South(s),West(w), exit(0)");
+      System.out.print("---> ");
+      if(input.hasNext() == true){
+        switch(input.next()){
+          case "s":
+            System.out.println("Moved South");
+            moves --;
+            break;
+          case "n":
+            System.out.println("Moved North");
+            moves --;
+            break;
+          case "e":
+            System.out.println("Moved East");
+            moves --;
+            break;
+          case "w":
+            System.out.println("Moved West");
+            moves --;
+            break;
+          default:
+            System.out.println("Please input a valid in");
+            break;
+        }
+      }
+    }
+  }
 
   public static void createBoard(){
     int min = 0;
