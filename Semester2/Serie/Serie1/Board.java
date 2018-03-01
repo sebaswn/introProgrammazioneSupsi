@@ -6,8 +6,8 @@ public class Board{
   static String[][] boardPieces = new String[10][10];
   static Scanner input  = new Scanner(System.in);
 
-  Player player1 = new Player(0,9,0,1,"X");
-  Player player1 = new Player(9,0,0,1,"Y");
+  static Player player1 = new Player(0,9,0,1,"X");
+  static Player player2 = new Player(9,0,0,1,"Y");
 
   static final String ANSI_YELLOW = "\u001B[33m";
   static final String ANSI_RESET = "\u001B[0m";
@@ -19,35 +19,136 @@ public class Board{
     return  1+(int)(Math.random()*6);
   }
 
-  public static void move(String dir, int player){
-    if(player == 1){
+  public static void overlap(){
+    System.out.println();
+    System.out.println("You are on the same gamepiece. Let the games begin");
+    int p1 = rollDice();
+    int p2 = rollDice();
+    System.out.println();
+    System.out.println("Player 1 rolls a " + p1);
+    System.out.println("Player 2 rolls a " + p2);
 
+    if(p1 == p2){
+      System.out.println("It's a tie. Roll again");
+      overlap();
+      return;
+    }
+
+    if(p1 > p2){
+      System.out.println("Player 1 wins. He steals a coin and sends you back to the beginning.");
+      player1.coins ++;
+      player2.coins --;
+      player2.posX = 9;
+      player2.posY = 0;
+    }else{
+      System.out.println("Player 2 wins. He steals a coin and sends you back to the beginning.");
+      player2.coins ++;
+      player1.coins --;
+      player1.posX = 0;
+      player1.posY = 9;
     }
   }
+
+  public static void move(String dir, int player){
+    Player movingPlayer;
+    if(player == 1){
+      movingPlayer = player1;
+    }else {
+      movingPlayer = player2;
+    }
+
+    boardPieces[movingPlayer.posX][movingPlayer.posY] = "";
+    switch(dir){
+      case "n":
+        if(movingPlayer.posX != 0){
+          movingPlayer.posX --;
+        }else{
+          movingPlayer.posX = 9;
+        }
+        break;
+      case "s":
+        if(movingPlayer.posX != 9){
+          movingPlayer.posX ++;
+        }else{
+          movingPlayer.posX = 0;
+        }
+        break;
+      case "e":
+        if(movingPlayer.posY != 9){
+          movingPlayer.posY ++;
+        }else{
+          movingPlayer.posY = 0;
+        }
+        break;
+      case "w":
+        if(movingPlayer.posY != 0){
+          movingPlayer.posY --;
+        }else{
+          movingPlayer.posY = 9;
+        }
+        break;
+    }
+    if(checkForCoins(movingPlayer.posX, movingPlayer.posY) == true){
+      updateBoard(false);
+      movingPlayer.coins ++;
+    }else if(checkForPlayer() == true){
+      System.out.println("GET OUT OF MY WAY MOTHERFUCKER");
+      updateBoard(true);
+      print();
+      overlap();
+      updateBoard(false);
+    }else{
+      updateBoard(false);
+
+    }
+    print();
+  }
+
+  public static void updateBoard(boolean overlap){
+    if(overlap == false){
+      boardPieces[player2.posX][player2.posY] = "Y";
+      boardPieces[player1.posX][player1.posY] = "X";
+    }else{
+      boardPieces[player2.posX][player2.posY] = "XY";
+    }
+  }
+
+  public static boolean checkForPlayer(){
+    if(player1.posX == player2.posX && player1.posY == player2.posY){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public static boolean checkForCoins(int x, int y){
+    if(boardPieces[x][y] == "$"){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
   public static void moving(int moves, int player){
     while (moves > 0){
       System.out.println("");
       System.out.println("Moves left: " + moves);
-      System.out.println("Which way would you like to move? North(n),East(e),South(s),West(w), exit(0)");
+      System.out.println("Which way would you like to move? North(n),East(e),South(s),West(w), Show Board(sb), exit(ex)");
       System.out.print("---> ");
       if(input.hasNext() == true){
-        switch(input.next()){
-          case "s":
-            System.out.println("Moved South");
+        String chosenMove = input.next();
+        switch(chosenMove){
+          case "s": case "n":
+          case "e": case "w":
+            move(chosenMove, player);
             moves --;
             break;
-          case "n":
-            System.out.println("Moved North");
-            moves --;
+          case "sb":
+            print();
             break;
-          case "e":
-            System.out.println("Moved East");
-            moves --;
-            break;
-          case "w":
-            System.out.println("Moved West");
-            moves --;
+          case "ex":
+            moves = 0;
             break;
           default:
             System.out.println("Please input a valid in");
@@ -88,18 +189,22 @@ public class Board{
       for (int k = 0; k < gridWidth; k++) {
         if(boardPieces[j][k] == "$"){
           System.out.print(" ");
-          //System.out.print(ANSI_YELLOW +boardPieces[j][k]+ ANSI_RESET);
-          System.out.print(boardPieces[j][k]);
+          System.out.print(ANSI_YELLOW +boardPieces[j][k]+ ANSI_RESET);
+          //System.out.print(boardPieces[j][k]);
           System.out.print(" ");
         }else if(boardPieces[j][k] == "X"){
           System.out.print(" ");
-          //System.out.print(ANSI_RED+boardPieces[j][k]+ ANSI_RESET);
-          System.out.print(boardPieces[j][k]);
+          System.out.print(ANSI_RED+boardPieces[j][k]+ ANSI_RESET);
+          //System.out.print(boardPieces[j][k]);
           System.out.print(" ");
         }else if(boardPieces[j][k] == "Y"){
           System.out.print(" ");
-          //System.out.print(ANSI_BLUE +boardPieces[j][k]+ ANSI_RESET);
+          System.out.print(ANSI_BLUE +boardPieces[j][k]+ ANSI_RESET);
+          //System.out.print(boardPieces[j][k]);
+          System.out.print(" ");
+        }else if(boardPieces[j][k] == "XY"){
           System.out.print(boardPieces[j][k]);
+          //System.out.print(boardPieces[j][k]);
           System.out.print(" ");
         }else{
           System.out.print("   ");

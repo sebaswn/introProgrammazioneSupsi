@@ -1,12 +1,16 @@
 import java.util.Scanner;
 
-public class Gioco {
+public class Game {
 
   static Board gameBoard = new Board();
   static boolean play = true;
   static int player = 1;
   static Scanner input  = new Scanner(System.in);
 
+  public static void gameInfo(){
+    System.out.println("Player 1 has " + gameBoard.player1.coins + " coins.");
+    System.out.println("Player 2 has " + gameBoard.player2.coins + " coins.");
+  }
 
   public static void menu(){
     boolean moved = false;
@@ -29,11 +33,11 @@ public class Gioco {
           gameBoard.print();
           break;
         case 2:
-          gameBoard.moving(gameBoard.rollDice(), players);
+          gameBoard.moving(gameBoard.rollDice(), player);
           moved = true;
           break;
         case 3:
-          System.out.println("Game info...");
+          gameInfo();
           break;
         default:
           System.out.println("Please insert a valid input.");
@@ -54,9 +58,8 @@ public class Gioco {
   }
 
   public static void main(String[] args) {
-
     gameBoard.createBoard();
-
+    gameBoard.print();
     while(play == true){
       menu();
     }

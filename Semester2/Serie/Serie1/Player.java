@@ -8,7 +8,7 @@ public class Player{
   Player(int pX, int pY, int c, int pN, String i){
     posX = pX;
     posY = pY;
-    coind = c;
+    coins = c;
     playerNumber = pN;
     icon = i;
   }
