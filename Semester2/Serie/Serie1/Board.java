@@ -36,17 +36,37 @@ public class Board{
 
     if(p1 > p2){
       System.out.println("Player 1 wins. He steals a coin and sends you back to the beginning.");
-      player1.coins ++;
-      player2.coins --;
-      player2.posX = 9;
-      player2.posY = 0;
+      if(player2.coins > 0){
+        player1.coins ++;
+        player2.coins --;
+      }
+      if(boardPieces[0][9] == " "){
+        player2.posX = 0;
+        player2.posY = 9;
+      }else{
+        player2.posX = 9;
+        player2.posY = 0;
+      }
     }else{
       System.out.println("Player 2 wins. He steals a coin and sends you back to the beginning.");
-      player2.coins ++;
-      player1.coins --;
-      player1.posX = 0;
-      player1.posY = 9;
+      if(player1.coins > 0){
+        player2.coins ++;
+        player1.coins --;
+      }
+      if(boardPieces[9][0] == " "){
+        player1.posX = 9;
+        player1.posY = 0;
+      }else{
+        player1.posX = 0;
+        player1.posY = 9;
+      }
     }
+    updateBoard(false);
+  }
+
+  public static void gameInfo(){
+    System.out.println("Player 1 has " + player1.coins + " coins.");
+    System.out.println("Player 2 has " + player2.coins + " coins.");
   }
 
   public static void move(String dir, int player){
@@ -57,7 +77,7 @@ public class Board{
       movingPlayer = player2;
     }
 
-    boardPieces[movingPlayer.posX][movingPlayer.posY] = "";
+    boardPieces[movingPlayer.posX][movingPlayer.posY] = " ";
     switch(dir){
       case "n":
         if(movingPlayer.posX != 0){
@@ -92,7 +112,6 @@ public class Board{
       updateBoard(false);
       movingPlayer.coins ++;
     }else if(checkForPlayer() == true){
-      System.out.println("GET OUT OF MY WAY MOTHERFUCKER");
       updateBoard(true);
       print();
       overlap();
@@ -101,7 +120,21 @@ public class Board{
       updateBoard(false);
 
     }
+    checkVictory();
+
     print();
+  }
+
+  public static void checkVictory(){
+    if(player1.coins == 10){
+      System.out.println("Congratulations, player 1 wins!");
+      System.exit('1');
+    }else if(player2.coins == 10){
+      System.out.println("Congratulations, player 2 wins!");
+      System.exit('1');
+    }
+
+
   }
 
   public static void updateBoard(boolean overlap){
@@ -134,7 +167,7 @@ public class Board{
     while (moves > 0){
       System.out.println("");
       System.out.println("Moves left: " + moves);
-      System.out.println("Which way would you like to move? North(n),East(e),South(s),West(w), Show Board(sb), exit(ex)");
+      System.out.println("Which way would you like to move? North(n),East(e),South(s),West(w), Show Board(sb), Show Info(si), exit(ex)");
       System.out.print("---> ");
       if(input.hasNext() == true){
         String chosenMove = input.next();
@@ -150,6 +183,9 @@ public class Board{
           case "ex":
             moves = 0;
             break;
+          case "si":
+            gameInfo();
+            break;
           default:
             System.out.println("Please input a valid in");
             break;
@@ -161,6 +197,12 @@ public class Board{
   public static void createBoard(){
     int min = 0;
     int max = 9;
+
+    for(int j = 0; j < 10; j++){
+      for(int k = 0; k < 10; k++){
+        boardPieces[j][k] = " ";
+      }
+    }
 
     boardPieces[0][9] = "X";
     boardPieces[9][0] = "Y";
@@ -179,6 +221,7 @@ public class Board{
   public static void print(){
     System.out.println();
     System.out.println();
+    System.out.println(boardPieces[0][9]);
     for (int i = 0; i < (gridWidth * 4 +1); i++) {
       System.out.print("-");
     }
