@@ -133,8 +133,6 @@ public class Board{
       System.out.println("Congratulations, player 2 wins!");
       System.exit('1');
     }
-
-
   }
 
   public static void updateBoard(boolean overlap){
